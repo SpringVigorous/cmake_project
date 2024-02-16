@@ -1,38 +1,15 @@
-### gradle ###
-.gradle
-/build/
-!gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
 .settings/
 .vs/
-.build/
+build/
 .settings
 .vscode/
 bin/
+3rd/
+vcpkg/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-rebel.xml
 
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-nbdist/
-.nb-gradle/
-
-### maven ###
-target/
-*.war
-*.ear
-*.zip
-*.tar
-*.tar.gz
-*.versionsBackup
 
 ### vscode ###
 .vscode
@@ -50,4 +27,3 @@ target/
 *.properties~
 *.xml~
 
-### system ignore ###
