@@ -39,6 +39,7 @@ public:
     vector<int> selectedItems() const
     {
         vector<int> result;
+
         auto it = std::find_if(dp.rbegin(), dp.rend(), [this](int val)
                                { return val != maxValue(); });
         if (it == dp.rend())

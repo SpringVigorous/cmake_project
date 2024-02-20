@@ -2,16 +2,25 @@
 #include <test/test.h>
 #include <iostream>
 
-int main(int count, const char* args[])
+int main(int count, const char *args[])
 {
     // test_queens_n_n();
     // test_queens_n();
     // test_format();
 
-    //test_package_0_1();
-    test_package_0_1_2();
-    test_package_whole_1();
-    //test_quick_sort();
+     //test_package_0_1();
+    // test_package_0_1_2();
+    // test_package_whole_1();
+    // test_quick_sort();
+    // test_merge_sort();
+    // test_insert_sort();
+    //  test_shell_sort();
+    // test_heap_sort();
+    // test_bfs();
+    // test_recursive();
+    // test_slice_paper();
+    //test_key_route();
+    test_maze();
     system("pause");
 
     return 0;
