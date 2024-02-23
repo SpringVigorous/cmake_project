@@ -1,9 +1,26 @@
-﻿#pragma execution_character_set("utf-8")
+﻿//#pragma execution_character_set("utf-8")
 #include <test/test.h>
 #include <iostream>
+#include <cstdlib>
+#include <filesystem>
+#include <string>
 
-int main(int count, const char *args[])
+int main(int count, const char* args[])
 {
+    using namespace std;
+    string temp_str("临时文件目录");
+
+    cout << "临时文件目录:" << filesystem::temp_directory_path() << endl;
+    std::filesystem::path cmake_file = std::filesystem::path("CMakeLists.txt");
+    std::cout << "CMakeLists.txt 的路径: " << cmake_file << std::endl;
+
+    // 设置当前工作目录为指定路径
+    cout << "原始工作目录为：\n" << std::filesystem::current_path() << endl;
+    auto work_dir = std::filesystem::path(args[0]).parent_path();
+     std::filesystem::current_path(work_dir);
+    cout << "修改后工作目录为：\n" << std::filesystem::current_path() << endl;
+
+    test_code_convet();
     // test_queens_n_n();
     // test_queens_n();
     // test_format();
@@ -20,7 +37,7 @@ int main(int count, const char *args[])
     // test_recursive();
     // test_slice_paper();
     //test_key_route();
-    test_maze();
+    // test_maze();
     system("pause");
 
     return 0;

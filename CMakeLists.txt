@@ -14,7 +14,7 @@ set(CMAKE_DEBUG_POSTFIX "_d")
 if(NOT CMAKE_BUILD_TYPE)
   message(STATUS "Set default build type as Debug")
   set(CMAKE_BUILD_TYPE
-      Release
+        Debug
       CACHE STRING "Build Type" FORCE)
 endif()
 
@@ -90,6 +90,7 @@ option(INCLUDE_GLOBALLY "Include project directories globally" ON)
 message(STATUS "Include project directories globally: ${INCLUDE_GLOBALLY}")
 
 find_package(cereal CONFIG REQUIRED)
+find_package(Boost REQUIRED COMPONENTS locale)
 find_package(Iconv)
 if(Iconv_FOUND)
 message(STATUS "Iconv is found")

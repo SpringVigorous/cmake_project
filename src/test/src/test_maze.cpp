@@ -6,6 +6,13 @@
 #include <string>
 #include <sstream>
 #include <stack>
+#include <fstream>
+#include <iostream>
+#include <filesystem>
+
+
+    
+
 
 using namespace std;
 
@@ -36,7 +43,6 @@ int bfs() {
 
         if (x == endX && y == endY) {
             print(dist);
-
             return dist[x][y];
         }
 
@@ -51,8 +57,10 @@ int bfs() {
             }
         }
     }
-
+    cout << "bfs：算法-失败\n";
+    print(dist);
     return -1;
+
 }
 int dfs() {
     stack<pair<int, int>> q;
@@ -93,49 +101,34 @@ int dfs() {
 }
 
 void test_maze(){
+    std::filesystem::path current_dir = std::filesystem::current_path() / "maze.txt";
+    // 打开文件
+    std::ifstream file(current_dir);
+    if (!file.is_open()) {
+        std::cerr << "无法打开文件" << std::endl;
+        return ;
+    }
 
-    string test_str = R"(
-        22 22 6 1 20 20
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 1 1 1 0 0 1 1 1 1 1 1 1 1 1 0 1 0 0 1 0 0
-0 1 0 1 0 0 0 0 0 1 0 0 0 1 0 0 1 0 0 1 0 0
-0 1 0 1 0 0 0 0 0 1 0 0 0 1 0 0 1 1 1 1 0 0
-0 1 1 1 1 1 1 0 0 1 1 1 1 1 0 0 1 0 0 0 0 0
-0 1 0 0 0 0 1 0 0 1 0 0 0 1 1 1 1 1 1 1 1 0
-0 1 1 0 1 1 1 1 1 1 0 0 0 1 0 0 1 0 0 0 1 0
-0 0 0 0 1 0 1 0 0 0 0 0 0 1 0 0 1 0 0 0 1 0
-0 1 0 0 1 0 1 0 1 1 1 1 1 1 0 0 1 1 1 1 1 0
-0 1 1 1 1 1 1 0 0 0 0 0 0 1 0 0 1 0 1 0 1 0
-0 1 0 1 0 0 1 1 1 1 1 1 1 1 0 0 1 0 1 0 1 0
-0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 0 1 0 1 0 1 0
-0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 1 1 1 1 0
-0 1 0 0 0 0 1 0 1 0 1 0 1 0 1 0 0 0 1 0 1 0
-0 1 0 1 1 1 1 0 1 0 1 0 1 0 1 1 1 0 1 0 1 0
-0 1 0 1 0 0 1 0 1 0 1 0 1 0 0 0 1 0 1 0 1 0
-0 1 0 1 0 0 0 0 1 0 1 0 1 0 0 0 1 0 1 0 1 0
-0 1 0 1 1 1 1 1 1 0 1 0 1 0 0 0 1 0 1 1 1 0
-0 1 0 0 0 1 0 0 0 0 0 0 1 0 0 0 1 0 1 0 1 0
-0 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 1 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-        )";
+    // 读取文件内容到 stringstream
+    std::stringstream buffer;
+    buffer << file.rdbuf();
 
-    stringstream test_stream(test_str);
+    // 关闭文件
+    file.close();
 
-    test_stream >> MAX_X>>MAX_Y>> startX >> startY >> endX >> endY;
+
+
+    buffer >> MAX_X>>MAX_Y>> startX >> startY >> endX >> endY;
     maze.resize(MAX_X, vector<int>(MAX_Y, 0));
 
     for (int i = 0; i < MAX_X; ++i) {
         for (int j = 0; j < MAX_Y; ++j) {
-            char c;
-            test_stream >> c;
-            maze[i][j] = c == '1' ? 1 : 0;
+            buffer >> maze[i][j] ;
         }
     }
     cout << "原始矩阵：\n";
     print(maze);
     cout << "原始矩阵显示完毕\n";
-
 
     int result = bfs();
     if (result == -1) {
@@ -144,7 +137,7 @@ void test_maze(){
         cout << "Shortest path length: " << result << endl;
     }
 
-    result = dfs();
+   // result = dfs();
     if (result == -1) {
         cout << "No path found." << endl;
     }

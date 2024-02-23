@@ -2,6 +2,8 @@
 #include <iostream>
 #include <memory>
 
+void test_code_convet();
+
 void test_queens_n_n();
 void test_queens_n();
 void test_format();
