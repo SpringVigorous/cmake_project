@@ -24,8 +24,26 @@ public:
 #else
 #include <boost/locale.hpp>
 namespace boost_convert = boost::locale::conv;
-
+// boost::locale::conv::utf_to_utf<> 是全能的
 #endif // USE_WSTRING_CONVERT
+
+template <class DestType, class SrcType>
+std::basic_string<DestType> convert_to(const std::basic_string<SrcType>& src)
+{
+    using DestStringType = std::basic_string<DestType>;
+    try
+    {
+#ifdef USE_WSTRING_CONVERT
+        return DestStringType{};
+#else
+        return boost_convert::utf_to_utf<DestType>(src);
+#endif
+}
+    catch (...)
+    {
+        return DestStringType{};
+    }
+}
 
 std::string CodeConvert::gbk_to_utf8(const std::string &gbk_str)
 {
@@ -34,7 +52,7 @@ std::string CodeConvert::gbk_to_utf8(const std::string &gbk_str)
 #else
     return boost_convert::to_utf<char>(gbk_str, "gbk");
     return boost_convert::between(gbk_str, "utf-8", "gbk");
-// 将gbk字符串转换为unicode字符串
+    // 将gbk字符串转换为unicode字符串
 #endif
 }
 
@@ -46,6 +64,7 @@ std::string CodeConvert::utf8_to_gbk(const std::string &utf_str)
 #else
     return boost_convert::from_utf<char>(utf_str, "gbk");
     return boost_convert::between(utf_str, "gbk", "utf-8");
+
 #endif
 
     // 将utf8字符串转换为gbk字符串
@@ -60,6 +79,7 @@ std::string CodeConvert::unicode_to_utf8(const std::wstring &uicode_str)
 #else
 
     return boost_convert::from_utf<wchar_t>(uicode_str, "utf-8");
+    return convert_to<char>(uicode_str);
 #endif
 }
 
@@ -72,6 +92,7 @@ std::wstring CodeConvert::utf8_to_unicode(const std::string &utf_str)
 #else
 
     return boost_convert::to_utf<wchar_t>(utf_str, "utf-8");
+    return convert_to<wchar_t>(utf_str);
 #endif
 }
 std::wstring CodeConvert::gbk_to_unicode(const std::string &gbk_str)
@@ -92,6 +113,7 @@ std::string CodeConvert::unicode_to_gbk(const std::wstring &uicode_str)
     return converter.to_bytes(uicode_str);
 #else
     return boost_convert::from_utf<wchar_t>(uicode_str, "gbk");
+
 #endif
 }
 std::wstring gbk_to_unicode_temp(const std::string &gbk_str)
@@ -339,49 +361,44 @@ std::string wstr_to_str(std::wstring org_str, const char *from_code, const char 
 
     return "";
 }
-std::u16string CodeConvert::utf8_to_utf16(const std::string &utf8_str)
-{
 
-    return boost_convert::utf_to_utf<char16_t>(utf8_str);
-}
-
-std::string CodeConvert::utf16_to_utf8(const std::u16string &utf16_str)
+std::u16string CodeConvert::utf8_to_utf16(const std::string& utf8_str)
 {
-    return boost_convert::utf_to_utf<char>(utf16_str);
+    return convert_to<char16_t>(utf8_str);
 }
-
-std::u32string CodeConvert::utf8_to_utf32(const std::string &utf8_str)
+std::string CodeConvert::utf16_to_utf8(const std::u16string& utf16_str)
 {
-    return boost_convert::utf_to_utf<char32_t>(utf8_str);
+    return convert_to<char>(utf16_str);
 }
-
-std::string CodeConvert::utf32_to_utf8(const std::u32string &utf32_str)
+std::u32string CodeConvert::utf8_to_utf32(const std::string& utf8_str)
 {
-    return boost_convert::utf_to_utf<char>(utf32_str);
+    return convert_to<char32_t>(utf8_str);
 }
-
-std::u32string CodeConvert::utf16_to_utf32(const std::u16string &utf16_str)
+std::string CodeConvert::utf32_to_utf8(const std::u32string& utf32_str)
 {
-    return boost_convert::utf_to_utf<char32_t>(utf16_str);
+    return convert_to<char>(utf32_str);
 }
-
-std::u16string CodeConvert::utf32_to_utf16(const std::u32string &utf32_str)
+std::u32string CodeConvert::utf16_to_utf32(const std::u16string& utf16_str)
 {
-    return boost_convert::utf_to_utf<char16_t>(utf32_str);
+    return convert_to<char32_t>(utf16_str);
 }
-std::u16string CodeConvert::utf8_to_utf16(const std::u8string &utf32_str)
+std::u16string CodeConvert::utf32_to_utf16(const std::u32string& utf32_str)
 {
-    return boost_convert::utf_to_utf<char16_t>(utf32_str);
+    return convert_to<char16_t>(utf32_str);
 }
-std::u32string CodeConvert::utf8_to_utf32(const std::u8string &utf8_str)
+std::u16string CodeConvert::utf8_to_utf16(const std::u8string& utf32_str)
 {
-    return boost_convert::utf_to_utf<char32_t>(utf8_str);
+    return convert_to<char16_t>(utf32_str);
 }
-std::u8string CodeConvert::utf8_to_utf8(const std::string &utf8_str)
+std::u32string CodeConvert::utf8_to_utf32(const std::u8string& utf8_str)
+{
+    return convert_to<char32_t>(utf8_str);
+}
+std::u8string CodeConvert::utf8_to_utf8(const std::string& utf8_str)
 {
     return std::u8string(utf8_str.begin(), utf8_str.end());
 }
-std::string CodeConvert::utf8_to_utf8(const std::u8string &utf8_str)
+std::string CodeConvert::utf8_to_utf8(const std::u8string& utf8_str)
 {
     return std::string(utf8_str.begin(), utf8_str.end());
 }

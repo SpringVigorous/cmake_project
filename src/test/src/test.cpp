@@ -20,7 +20,7 @@ int main(int count, const char* args[])
      std::filesystem::current_path(work_dir);
     cout << "修改后工作目录为：\n" << std::filesystem::current_path() << endl;
 
-    test_code_convet();
+    //test_code_convet();
     // test_queens_n_n();
     // test_queens_n();
     // test_format();
