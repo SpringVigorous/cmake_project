@@ -29,21 +29,21 @@ public:
     }
 
     void topologicalSort() {
-        queue<int> q;
+        queue<int> container;
         for (int i = 0; i < MAXN; i++) {
             if (indegree[i] == 0) {
-                q.push(i);
+                container.push(i);
                 critical_path[i] = 1;
             }
         }
 
-        while (!q.empty()) {
-            int u = q.front();
-            q.pop();
+        while (!container.empty()) {
+            int u = container.front();
+            container.pop();
             for (int v : adjacency[u]) {
                 indegree[v]--;
                 if (indegree[v] == 0) {
-                    q.push(v);
+                    container.push(v);
                 }
                 if (critical_path[u] + 1 > critical_path[v]) {
                     critical_path[v] = critical_path[u] + 1;

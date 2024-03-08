@@ -15,21 +15,21 @@ struct TreeNode {
 void bfsTraversal(TreeNode* root) {
     if (!root) return;
 
-    queue<TreeNode*> q;
-    q.push(root);
+    queue<TreeNode*> container;
+    container.push(root);
 
-    while (!q.empty()) {
+    while (!container.empty()) {
         // 当前层的节点数量
-        int levelSize = q.size();
+        int levelSize = container.size();
         while (levelSize--) {
             // 弹出队首节点并访问它
-            TreeNode* node = q.front();
+            TreeNode* node = container.front();
             cout << node->val << " ";
-            q.pop();
+            container.pop();
 
             // 将其左右子节点加入队列（如果存在）
-            if (node->left) q.push(node->left);
-            if (node->right) q.push(node->right);
+            if (node->left) container.push(node->left);
+            if (node->right) container.push(node->right);
         }
         // 输出换行符以区分不同层次
         cout << endl;

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <memory>
+#include <format>
 
 void test_code_convet();
 
@@ -25,13 +26,27 @@ void test_slice_paper();
 void test_key_route();
 void test_maze();
 
+template<class T, class K>
+void print(const std::pair<T, K>& item) {
+    using namespace std;
+    cout << std::format("({},{})\n", item.first, item.second);
+}
+
+template<class T>
+void print(const T& val) {
+    using namespace std;
+    cout << val << ",";
+}
+
 template<class T,template<typename U,typename =std::allocator<U>> class Container>
 void print(const Container<T>& vec) {
     using namespace std;
     for (const auto& val : vec)
-        cout << val << ",";
+        print(val);
     cout << "\n";
 }
+
+
 template<class T, template<typename U, typename = std::allocator<U>> class Container>
 void print(const Container<Container<T>>& vec) {
     using namespace std;
