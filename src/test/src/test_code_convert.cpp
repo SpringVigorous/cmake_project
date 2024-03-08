@@ -4,7 +4,7 @@
 void test_code_convet()
 {
     using namespace std;
-    string gbk_str{ "ÖÐ¹ú" };
+    string gbk_str{ "ä¸­å›½" };
     auto unicode_str = CodeConvert::gbk_to_unicode(gbk_str);
     auto utf_str= CodeConvert::gbk_to_utf8(gbk_str);
 
