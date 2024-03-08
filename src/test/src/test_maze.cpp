@@ -23,10 +23,10 @@ template <class T>
 class maze_container_interface
 {
 public:
-    virtual const T &top() const = 0;
+    virtual const T& top() const = 0;
     virtual void pop() = 0;
-    virtual void push(T &&_Val) = 0;
-    virtual void push(const T &_Val) = 0;
+    virtual void push(T&& _Val) = 0;
+    virtual void push(const T& _Val) = 0;
     virtual bool empty() const = 0;
 };
 
@@ -37,7 +37,7 @@ public:
     using container_type = std::stack<T>;
 
 public:
-    const T &top() const override
+    const T& top() const override
     {
         return container.top();
     }
@@ -45,12 +45,11 @@ public:
     {
         container.pop();
     }
-    void push(T &&_Val)
-        override
+    void push(T&& _Val) override
     {
         container.push(std::forward<T>(_Val));
     }
-    void push(const T &_Val) override
+    void push(const T& _Val) override
     {
         container.push(_Val);
     }
@@ -70,7 +69,7 @@ public:
     using container_type = std::queue<T>;
 
 public:
-    const T &top() const override
+    const T& top() const override
     {
         return container.front();
     }
@@ -78,12 +77,12 @@ public:
     {
         container.pop();
     }
-    void push(T &&_Val)
+    void push(T&& _Val)
         override
     {
         container.push(std::forward<T>(_Val));
     }
-    void push(const T &_Val) override
+    void push(const T& _Val) override
     {
         container.push(_Val);
     }
@@ -107,7 +106,7 @@ public:
 public:
     static void loop(int cur_x, int cur_y, body_func_type body_func, limit_func_type limit_func, limit_func_type break_func)
     {
-        for (const auto &[dx, dy] : directs)
+        for (const auto& [dx, dy] : directs)
         {
             int newX = cur_x + dx;
             int newY = cur_y + dy;
@@ -121,22 +120,22 @@ public:
     }
 
 private:
-    inline static vector<result_pair_type> directs{{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+    inline static vector<result_pair_type> directs{ {0, -1}, {1, 0}, {0, 1}, {-1, 0} };
 };
 bool check_index_valid(int x, int y, int count_x, int count_y)
 {
     return x >= 0 && x < count_x && y >= 0 && y < count_y;
 }
-void show_route(const vector<vector<int>> &dists, int startX, int startY, int endX, int endY)
+void show_route(const vector<vector<int>>& dists, int startX, int startY, int endX, int endY)
 {
     if (dists.empty())
         return;
     size_t count_x = dists.size();
     size_t count_y = dists.front().size();
     auto check_index = [=](int x, int y)
-    {
-        return check_index_valid(x, y, count_x, count_y);
-    };
+        {
+            return check_index_valid(x, y, count_x, count_y);
+        };
     if (!check_index(startX, startY) || !check_index(endX, endY))
         return;
 
@@ -146,24 +145,25 @@ void show_route(const vector<vector<int>> &dists, int startX, int startY, int en
     route.resize(dists[endX][endY] + 1);
 
     auto set_data = [&](int x, int y)
-    {
-        cur_x = x;
-        cur_y = y;
-        cur_value = dists[cur_x][cur_y];
-        route[cur_value] = make_pair(cur_x, cur_y);
-    };
+        {
+            cur_x = x;
+            cur_y = y;
+            cur_value = dists[cur_x][cur_y];
+            route[cur_value] = make_pair(cur_x, cur_y);
+        };
     set_data(endX, endY);
-    while (!(cur_x == startX && cur_y == startY))
+    while (cur_x != startX || cur_y != startY)
     {
 
         MazeDirect::loop(cur_x, cur_y, nullptr, check_index, [&](int x, int y)
-                         {
+            {
                 if (dists[x][y] == cur_value - 1)
                 {
                     set_data(x, y);
                     return true;
                 }
-                return false; });
+                return false;
+            });
     }
     cout << std::format("可用路径共【{}】步，详情如下：", route.size()) << endl;
     print(route);
@@ -176,14 +176,14 @@ public:
     {
         Reset(_container);
     };
-    int Cal(const vector<vector<int>> &maze, int startX, int startY, int endX, int endY)
+    int Cal(const vector<vector<int>>& maze, int startX, int startY, int endX, int endY)
     {
         if (maze.empty() || !container)
             return -1;
         size_t count_x = maze.size();
         size_t count_y = maze.front().size();
         dist.assign(count_x, vector<int>(count_y, default_dist));
-        container->push({startX, startY});
+        container->push({ startX, startY });
 
         dist[startX][startY] = 0;
 
@@ -224,7 +224,7 @@ private:
     vector<vector<int>> dist;
 };
 
-bool get_org_maze(vector<vector<int>> &maze, int &startX, int &startY, int &endX, int &endY)
+bool get_org_maze(vector<vector<int>>& maze, int& startX, int& startY, int& endX, int& endY)
 {
     std::filesystem::path current_dir = std::filesystem::current_path() / "maze.txt";
     // 打开文件
@@ -255,7 +255,7 @@ bool get_org_maze(vector<vector<int>> &maze, int &startX, int &startY, int &endX
             buffer >> maze[i][j];
         }
     }
-    cout << "原始矩阵：\n";
+    cout << std::format("原始矩阵({},{})-({},{})：\n",startX,startY,endX,endY);
     print(maze);
     cout << "原始矩阵显示完毕\n";
 
