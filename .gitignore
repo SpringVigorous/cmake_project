@@ -7,9 +7,9 @@ build/
 .vscode/
 bin/
 3rd/
-vcpkg/
 
 
+!3rd/vcpkg_list.txt
 
 ### vscode ###
 .vscode
