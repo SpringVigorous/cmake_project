@@ -226,6 +226,7 @@ private:
 
 bool get_org_maze(vector<vector<int>>& maze, int& startX, int& startY, int& endX, int& endY)
 {
+    //count_x 、 count_y 、 startX 、 startY 、 endX 、 endY;
     std::filesystem::path current_dir = std::filesystem::current_path() / "maze.txt";
     // 打开文件
     std::ifstream file(current_dir);

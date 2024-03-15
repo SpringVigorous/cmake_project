@@ -37,7 +37,8 @@ int main(int count, const char* args[])
     // test_recursive();
     // test_slice_paper();
     //test_key_route();
-     test_maze();
+    test_create_maze();
+    //  test_maze();
     system("pause");
 
     return 0;
