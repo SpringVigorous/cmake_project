@@ -10,6 +10,7 @@
         set(ds_group_name "\\")
       endif(ds_nogroup)
       source_group(${ds_group_name} FILES ${ds_file})
+      message(STATUS "文件分组-${ds_group_name}: ${ds_file}")
     endforeach(ds_file)
   endif(MSVC)
 endfunction(ds_source_group_by_dir)

@@ -39,7 +39,7 @@ void print(const T& val) {
     cout << val << ",";
 }
 
-template<class T,template<typename U,typename =std::allocator<U>> class Container>
+template<class T, template<typename U, typename = std::allocator<U>> class Container>
 void print(const Container<T>& vec) {
     using namespace std;
     for (const auto& val : vec)
@@ -52,12 +52,12 @@ template<class T, template<typename U, typename = std::allocator<U>> class Conta
 void print(const Container<Container<T>>& vec) {
     using namespace std;
     for (const auto& val : vec)
-        print(val) ;
+        print(val);
     cout << "\n";
 }
 
-template<class T, template<typename U, typename = std::allocator<U>> class Container,class Func>
-void print(const Container<T>& vec,Func func) {
+template<class T, template<typename U, typename = std::allocator<U>> class Container, class Func>
+void print(const Container<T>& vec, Func func) {
     using namespace std;
     for (const auto& val : vec)
         cout << func(val) << ",";
@@ -67,6 +67,6 @@ template<class T, template<typename U, typename = std::allocator<U>> class Conta
 void print(const Container<Container<T>>& vec, Func func) {
     using namespace std;
     for (const auto& val : vec)
-        print(val,func);
+        print(val, func);
     cout << "\n";
 }
