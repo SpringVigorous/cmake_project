@@ -26,6 +26,9 @@ void test_slice_paper();
 void test_key_route();
 void test_maze();
 void test_create_maze();
+void test_cache_recurse();
+
+void test_coroutine();
 
 template<class T, class K>
 void print(const std::pair<T, K>& item) {
