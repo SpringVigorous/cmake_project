@@ -31,6 +31,7 @@ public:
             for (int i = 0; i < values_.size(); ++i) {
                 auto cur_weight = weights_[i];
                 auto cur_val = values_[i];
+                //逆序，原因是 每样物品只能用一次（否则，对于单个物品，可能重复计算）
                 for (int j = maxWeight_; j >= cur_weight; --j) {
                     auto val = dp[j - cur_weight] + cur_val;
                     if (dp[j] < val)
