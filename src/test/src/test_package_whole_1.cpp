@@ -4,6 +4,8 @@
 
 using namespace std;
 
+
+//d[i]=max(d[i], d[i-w[j]]+v[j]))
 class PackingWhole {
 public:
     PackingWhole(int maxWeight, const vector<int>& values, const vector<int>& weights, bool is_whole = true)
@@ -17,6 +19,7 @@ public:
             for (int i = 0; i < values_.size(); ++i) {
                 auto cur_weight = weights_[i];
                 auto cur_val = values_[i];
+                //顺序，每样物品可以多次放入
                 for (int j = cur_weight; j <= maxWeight_; ++j) {
                     auto val = dp[j - cur_weight] + cur_val;
                     if (dp[j] < val)
