@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #if _WIN32
     #ifdef   __KERNEL_SERIALIZE__
         #define  KERNEL_SERIALIZE_API  __declspec(dllexport)

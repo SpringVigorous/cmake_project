@@ -1,4 +1,4 @@
-#include "dynamic_runtime/runtime.h"
+﻿#include "dynamic_runtime/runtime.h"
 _DYNAMIC_RUNTIME_BEGIN_
 runtime::runtime()  {
 };

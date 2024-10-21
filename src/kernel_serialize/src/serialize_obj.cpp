@@ -1,4 +1,4 @@
-#include "kernel_serialize/serialize_obj.h"
+﻿#include "kernel_serialize/serialize_obj.h"
 #include <iostream>
 _KERNEL_SERIALIZE_BEGIN_
 serialize_person::serialize_person()

@@ -1,4 +1,4 @@
-
+﻿
 #pragma once
 #if _WIN32
 #ifdef __PROJECT_TEMPLATE__

@@ -1,4 +1,4 @@
-#include "test/test.h"
+﻿#include "test/test.h"
 #include "tools/string_convert.h"
 
 void test_code_convet()

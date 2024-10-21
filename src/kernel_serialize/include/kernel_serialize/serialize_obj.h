@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef __SERIALIZE_OBJ_H___
 #define __SERIALIZE_OBJ_H___
 #include "kernel_serialize.h"

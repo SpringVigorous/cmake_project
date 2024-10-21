@@ -1,4 +1,4 @@
-#include "project_template/class_template.h"
+﻿#include "project_template/class_template.h"
 _PROJECT_TEMPLATE_BEGIN_
 class_template::class_template()  {
 };

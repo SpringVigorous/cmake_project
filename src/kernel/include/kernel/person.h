@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef __PERSON_H___
 #define __PERSON_H___
 #include "kernel.h"

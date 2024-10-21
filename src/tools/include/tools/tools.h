@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #if _WIN32
 #ifdef __TOOLS__
 #define TOOLS_API __declspec(dllexport)
