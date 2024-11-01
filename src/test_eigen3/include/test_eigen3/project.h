@@ -8,7 +8,7 @@ _TEST_EIGEN3_BEGIN_
 
 
 _TEST_EIGEN3_END_
-void main();
+int main();
 
 
 #endif

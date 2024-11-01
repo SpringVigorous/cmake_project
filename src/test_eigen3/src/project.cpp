@@ -1,6 +1,8 @@
 ﻿#include "test_eigen3/project.h"
 #include "test_eigen3/hm_vector.h"
 #include "test_eigen3/hm_matrix.h"
+#include "test_eigen3/bcurve.h"
+
 using namespace TEST_EIGEN3;
 void test_vector()
 {
@@ -20,7 +22,7 @@ void test_vector()
 
 int main()
 {
-    
+    test_bcurve();
   auto mtx1=  hm_matrix::Identify();
 
 
